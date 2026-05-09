@@ -1,0 +1,2839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Insugo — Trusted Insurance Brokers | Hyderabad & Andhra Pradesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { margin: 0 !important; padding: 0 !important; }
+
+  :root {
+    --yellow: #F5C518;
+    --yellow-dark: #D4A800;
+    --yellow-light: #FFF3B0;
+    --grey-900: #1A1A1A;
+    --grey-800: #2B2B2B;
+    --grey-700: #3D3D3D;
+    --grey-500: #7A7A7A;
+    --grey-300: #C4C4C4;
+    --grey-100: #F2F2F2;
+    --white: #FFFFFF;
+    --shadow: 0 8px 48px rgba(0,0,0,0.12);
+    --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── LOADING SCREEN ── */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--grey-900);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 32px;
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+
+  .loader-logo {
+    display: flex; align-items: center; gap: 14px;
+    animation: loaderFadeIn 0.6s ease forwards;
+    opacity: 0;
+  }
+  @keyframes loaderFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .loader-logo-mark {
+    width: 52px; height: 52px;
+    background: var(--yellow);
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 26px; font-weight: 800;
+    color: var(--grey-900);
+  }
+  .loader-logo-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 36px; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+  .loader-logo-text span { color: var(--yellow); }
+
+  .loader-tagline {
+    font-size: 12px; font-weight: 400;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--grey-500);
+    animation: loaderFadeIn 0.6s 0.2s ease forwards;
+    opacity: 0;
+  }
+
+  .loader-bar-wrap {
+    width: 180px; height: 2px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    animation: loaderFadeIn 0.6s 0.3s ease forwards;
+    opacity: 0;
+  }
+  .loader-bar {
+    height: 100%; width: 0;
+    background: var(--yellow);
+    border-radius: 2px;
+    animation: loadBar 1.4s 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+  @keyframes loadBar {
+    0%   { width: 0; }
+    60%  { width: 75%; }
+    100% { width: 100%; }
+  }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--grey-900);
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(26,26,26,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,197,24,0.15);
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 40px; height: 40px;
+    background: var(--yellow);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--grey-900);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+  .logo-text span { color: var(--yellow); }
+
+  nav ul {
+    display: flex; gap: 2px; list-style: none; align-items: center;
+  }
+  nav > ul > li { position: relative; }
+  nav a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--grey-300);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    padding: 8px 13px;
+    display: flex; align-items: center; gap: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--yellow); background: rgba(255,255,255,0.04); }
+
+  .nav-arrow {
+    font-size: 9px; opacity: 0.6;
+    transition: transform 0.25s;
+    display: inline-block;
+  }
+  nav > ul > li.open .nav-arrow { transform: rotate(180deg); }
+
+  /* ── MEGA DROPDOWN ── */
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 2px); /* tight gap — bridged by padding below */
+    left: 0;
+    background: var(--grey-800);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 230px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+    z-index: 500;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    /* invisible bridge so mouse can travel without closing */
+    padding-top: 10px;
+    margin-top: -2px;
+  }
+  .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: 0; right: 0;
+    height: 8px; /* bridge gap */
+  }
+  nav > ul > li.open .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
+  }
+
+  /* top-level items inside dropdown */
+  .nav-dropdown > .dd-item {
+    position: relative;
+  }
+  .dd-label {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--grey-300);
+    border-radius: 7px;
+    font-weight: 400;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s, background 0.15s;
+    background: none; border: none; width: 100%; text-align: left;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .dd-label:hover, .dd-item.sub-open > .dd-label {
+    color: var(--yellow);
+    background: rgba(245,197,24,0.07);
+  }
+  .dd-arrow { font-size: 14px; opacity: 0.45; transition: transform 0.2s; }
+  .dd-item.sub-open > .dd-label .dd-arrow { transform: rotate(90deg); opacity: 1; color: var(--yellow); }
+
+  /* plain link item (no children) */
+  .nav-dropdown a.dd-plain {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--grey-300);
+    border-radius: 7px;
+    font-weight: 400;
+  }
+  .nav-dropdown a.dd-plain:hover { color: var(--yellow); background: rgba(245,197,24,0.07); }
+  .nav-dropdown a.dd-plain::after { content: '›'; font-size: 16px; opacity: 0.35; }
+
+  /* sub-panel (flyout right) */
+  .dd-sub {
+    position: absolute;
+    top: 0; left: calc(100% + 6px);
+    background: var(--grey-800);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 260px;
+    opacity: 0; visibility: hidden;
+    transform: translateX(8px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    z-index: 501;
+  }
+  .dd-item.sub-open > .dd-sub {
+    opacity: 1; visibility: visible; transform: translateX(0);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
+  }
+  .dd-sub a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--grey-300);
+    border-radius: 7px;
+    font-weight: 400;
+    background: none;
+  }
+  .dd-sub a:hover { color: var(--yellow); background: rgba(245,197,24,0.07); }
+  .dd-sub a::before { content: '–'; color: var(--yellow); opacity: 0.6; font-size: 12px; flex-shrink:0; }
+  .dd-sub a::after { display: none; }
+
+  .nav-cta {
+    background: var(--yellow) !important;
+    color: var(--grey-900) !important;
+    padding: 9px 20px !important;
+    border-radius: 6px;
+    font-weight: 700 !important;
+    margin-left: 8px;
+    letter-spacing: 0.5px !important;
+  }
+  .nav-cta:hover { background: var(--yellow-dark) !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--white); display: block; }
+
+  /* ── INSURANCE AUDIT SECTION ── */
+  .audit-section { background: var(--grey-100); }
+  .audit-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 64px;
+  }
+  .audit-visual {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .audit-icon-block {
+    width: 200px; height: 200px;
+    background: var(--yellow);
+    border-radius: 24px;
+    display: grid; place-items: center;
+    font-size: 96px;
+    position: relative;
+  }
+  .audit-icon-block::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border: 2px dashed rgba(212,168,0,0.35);
+    border-radius: 32px;
+  }
+  .audit-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 0;
+  }
+  .audit-step {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 28px 24px;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+  }
+  .audit-step:hover { border-color: var(--yellow); transform: translateY(-4px); box-shadow: var(--shadow); }
+  .audit-step-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .audit-step h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--grey-900);
+    margin-bottom: 8px;
+  }
+  .audit-step p {
+    font-size: 13px;
+    color: var(--grey-500);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ── ASSOCIATED COMPANIES ── */
+  .partners-section { background: var(--white); padding: 80px 5vw; }
+  .partners-track-wrap {
+    position: relative;
+    margin-top: 48px;
+    overflow: hidden;
+  }
+  .partners-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .partner-card {
+    flex-shrink: 0;
+    width: calc(25% - 15px);
+    background: var(--white);
+    border: 1px solid var(--grey-100);
+    border-radius: 12px;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    transition: all var(--transition);
+  }
+  .partner-card:hover { border-color: var(--yellow); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .partner-img {
+    max-width: 100%; max-height: 56px;
+    width: auto; height: auto;
+    object-fit: contain;
+    filter: grayscale(30%);
+    transition: filter var(--transition);
+  }
+  .partner-card:hover .partner-img { filter: grayscale(0%); }
+  .partner-fallback {
+    font-size: 13px; font-weight: 600;
+    color: var(--grey-500); text-align: center;
+  }
+  .carousel-controls {
+    display: flex; justify-content: center; gap: 12px; margin-top: 32px;
+  }
+  .carousel-btn {
+    width: 40px; height: 40px;
+    background: var(--yellow);
+    border: none;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--grey-900);
+    transition: background var(--transition);
+  }
+  .carousel-btn:hover { background: var(--yellow-dark); }
+  .carousel-dots {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .carousel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--grey-300);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--transition);
+  }
+  .carousel-dot.active { background: var(--yellow); width: 24px; border-radius: 4px; }
+
+  /* ── OFFICES CONTACT ── */
+  .offices-section { background: var(--grey-100); padding: 80px 5vw; }
+  .offices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .office-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+  }
+  .office-card:hover { border-color: var(--yellow); box-shadow: var(--shadow); transform: translateY(-4px); }
+  .office-map {
+    height: 180px;
+    background: var(--grey-100);
+    position: relative;
+    overflow: hidden;
+  }
+  .office-map iframe {
+    width: 100%; height: 100%; border: none;
+    filter: grayscale(20%);
+  }
+  .office-map-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+  }
+  .office-map-placeholder .map-pin { font-size: 32px; }
+  .office-map-placeholder .map-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--grey-500);
+  }
+  .maps-link {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--white);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--grey-700);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transition: all var(--transition);
+  }
+  .maps-link:hover { background: var(--yellow); color: var(--grey-900); }
+  .office-body { padding: 24px; }
+  .office-title {
+    font-size: 17px; font-weight: 700;
+    color: var(--grey-900); margin-bottom: 16px;
+  }
+  .office-detail {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .office-detail-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .office-detail-text { font-size: 13px; color: var(--grey-600, #555); font-weight: 300; line-height: 1.5; }
+  .office-detail a { color: var(--grey-600, #555); text-decoration: none; }
+  .office-detail a:hover { color: var(--yellow-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--grey-900);
+    display: grid;
+    grid-template-columns: 55% 45%;
+    align-items: center;
+    padding: 0 5vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 140px 0 100px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow-line {
+    width: 32px; height: 1px;
+    background: var(--yellow);
+  }
+  .hero-eyebrow-text {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(38px, 4.2vw, 60px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 strong {
+    font-weight: 700;
+    color: var(--white);
+    display: block;
+  }
+  .hero h1 em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--yellow);
+    display: block;
+  }
+
+  .hero-divider {
+    width: 48px; height: 2px;
+    background: var(--yellow);
+    margin: 28px 0;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--grey-400, #9A9A9A);
+    line-height: 1.75;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--yellow);
+    color: var(--grey-900);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all var(--transition);
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--yellow-dark); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all var(--transition);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+
+  .hero-trust {
+    display: flex; align-items: center; gap: 20px;
+    margin-top: 52px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .trust-item {
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .trust-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+  .trust-label {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--grey-500);
+    letter-spacing: 0.5px;
+  }
+
+  .trust-divider {
+    width: 1px; height: 36px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* Hero Right Panel */
+  .hero-panel {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 140px 5vw 100px 60px;
+    border-left: none;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .panel-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--grey-500);
+    margin-bottom: 20px;
+  }
+
+  .coverage-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 36px;
+  }
+
+  .coverage-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: padding-left var(--transition);
+    cursor: default;
+  }
+  .coverage-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+  .coverage-item:hover { padding-left: 6px; }
+
+  .ci-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+  .coverage-item:hover .ci-dot { opacity: 1; }
+
+  .ci-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--grey-300);
+    flex: 1;
+    transition: color var(--transition);
+  }
+  .coverage-item:hover .ci-name { color: var(--white); }
+
+  .ci-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #D4D4D4;
+    background: rgba(255,255,255,0.11);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3px 9px;
+    border-radius: 4px;
+  }
+  .coverage-item:hover .ci-tag {
+    background: rgba(255,255,255,0.18);
+    color: #ffffff;
+  }
+
+  .irdai-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: rgba(245,197,24,0.06);
+    border: 1px solid rgba(245,197,24,0.15);
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+
+  .irdai-icon-box {
+    width: 36px; height: 36px;
+    background: var(--yellow);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .irdai-strip-text {}
+  .irdai-strip-text .t1 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .irdai-strip-text .t2 {
+    font-size: 11px;
+    color: var(--grey-500);
+    margin-top: 1px;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    background: var(--yellow);
+    padding: 16px 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--grey-900);
+    flex-shrink: 0;
+  }
+  .marquee-dot { width: 6px; height: 6px; background: var(--grey-900); border-radius: 50%; opacity: 0.5; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 5vw; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--yellow-dark);
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 28px; height: 2px;
+    background: var(--yellow);
+  }
+
+  .section-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: 1px;
+    color: var(--grey-900);
+    margin-bottom: 16px;
+  }
+
+  .section-heading em {
+    font-style: normal;
+    color: var(--yellow-dark);
+  }
+
+  .section-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--grey-500);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  /* ── SERVICES ── */
+  .services-section { background: var(--grey-100); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 36px 32px;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+    transform-origin: left;
+  }
+
+  .service-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 56px; height: 56px;
+    background: var(--yellow-light);
+    border-radius: 14px;
+    display: grid; place-items: center;
+    font-size: 26px;
+    margin-bottom: 24px;
+    transition: background var(--transition);
+  }
+  .service-card:hover .service-icon { background: var(--yellow); }
+
+  .service-card h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--grey-900);
+  }
+
+  .service-card p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--grey-500);
+    line-height: 1.7;
+  }
+
+  .service-tag {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--yellow-dark);
+    background: var(--yellow-light);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* ── WHY US ── */
+  .why-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .why-left {}
+
+  .why-points {
+    margin-top: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .why-point {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--grey-100);
+    transition: all var(--transition);
+  }
+
+  .why-point:hover {
+    border-color: var(--yellow);
+    background: var(--yellow-light);
+  }
+
+  .why-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--yellow);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .why-point h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--grey-900);
+  }
+
+  .why-point p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--grey-500);
+    line-height: 1.65;
+  }
+
+  .why-right {
+    position: relative;
+  }
+
+  .big-number-block {
+    background: var(--grey-900);
+    border-radius: 24px;
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .big-number-block::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: rgba(245,197,24,0.08);
+    border-radius: 50%;
+  }
+
+  .big-number-block .big-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 96px;
+    color: var(--yellow);
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+
+  .big-number-block .big-n-label {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--grey-300);
+    margin-bottom: 40px;
+  }
+
+  .big-block-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .big-block-stat .n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--white);
+  }
+  .big-block-stat .l {
+    font-size: 12px;
+    color: var(--grey-500);
+    margin-top: 4px;
+  }
+
+  .irdai-badge {
+    position: absolute;
+    bottom: -16px; right: 32px;
+    background: var(--yellow);
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 24px rgba(245,197,24,0.4);
+  }
+
+  .irdai-icon { font-size: 24px; }
+
+  .irdai-text .t1 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-900);
+  }
+  .irdai-text .t2 {
+    font-size: 13px;
+    color: var(--grey-700);
+  }
+
+  /* ── PROCESS ── */
+  .process-section { background: var(--grey-900); }
+  .process-section .section-heading { color: var(--white); }
+  .process-section .section-sub { color: var(--grey-400); }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    position: relative;
+  }
+
+  .process-step {
+    background: var(--grey-800);
+    padding: 36px 28px;
+    position: relative;
+    transition: background var(--transition);
+  }
+
+  .process-step:first-child { border-radius: 16px 0 0 16px; }
+  .process-step:last-child { border-radius: 0 16px 16px 0; }
+
+  .process-step:hover { background: var(--grey-700); }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: rgba(245,197,24,0.15);
+    line-height: 1;
+    position: absolute;
+    top: 16px; right: 20px;
+  }
+
+  .step-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .process-step h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .process-step p {
+    font-size: 13px;
+    color: var(--grey-500);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .step-arrow {
+    position: absolute;
+    top: 50%;
+    right: -12px;
+    transform: translateY(-50%);
+    width: 24px; height: 24px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 12px;
+    z-index: 2;
+    color: var(--grey-900);
+    font-weight: 700;
+  }
+
+  /* ── ASSOCIATED COMPANIES MARQUEE ── */
+  .partners-section { background: var(--white); padding: 80px 0; }
+  .partners-marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+  .partners-marquee-row { overflow: hidden; }
+  .partners-marquee-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: marqueeLeft 45s linear infinite;
+  }
+  .partners-marquee-reverse { animation: marqueeRight 42s linear infinite; }
+  @keyframes marqueeLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marqueeRight {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  .partners-marquee-wrap:hover .partners-marquee-track { animation-play-state: paused; }
+  .partner-card {
+    flex-shrink: 0;
+    width: 180px; height: 90px;
+    background: var(--white);
+    border: 1px solid var(--grey-100);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px 18px;
+    transition: all var(--transition);
+    position: relative; overflow: hidden;
+  }
+  .partner-card:hover { border-color: var(--yellow); box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .partner-img {
+    max-width: 100%; max-height: 52px;
+    width: auto; height: auto;
+    object-fit: contain; display: block;
+  }
+  .partner-fallback-name {
+    font-size: 12px; font-weight: 600;
+    color: var(--grey-600, #555); text-align: center;
+    line-height: 1.4; padding: 8px;
+  }
+  /* Show fallback name when image is missing — JS handles this below */
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--grey-100); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .testimonial-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    line-height: 0.7;
+    color: var(--yellow);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .testimonial-card p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--grey-700);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .author-avatar {
+    width: 44px; height: 44px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--grey-900);
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--grey-900);
+  }
+
+  .author-role {
+    font-size: 12px;
+    color: var(--grey-500);
+    margin-top: 2px;
+  }
+
+  .stars {
+    color: var(--yellow);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-section {
+    background: var(--yellow);
+    padding: 80px 5vw;
+  }
+
+  .cta-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cta-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    color: var(--grey-900);
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .cta-text p {
+    font-size: 16px;
+    color: var(--grey-800);
+    font-weight: 300;
+  }
+
+  .cta-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--grey-900);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all var(--transition);
+  }
+  .btn-dark:hover { background: var(--grey-700); transform: translateY(-2px); }
+
+  .btn-outline-dark {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 2px solid var(--grey-900);
+    color: var(--grey-900);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all var(--transition);
+  }
+  .btn-outline-dark:hover { background: var(--grey-900); color: var(--white); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .contact-info {}
+
+  .contact-details {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-100);
+    transition: border-color var(--transition);
+  }
+
+  .contact-row:hover { border-color: var(--yellow); }
+
+  .c-icon {
+    width: 44px; height: 44px;
+    background: var(--yellow-light);
+    border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .c-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-500);
+    margin-bottom: 4px;
+  }
+
+  .c-value {
+    font-size: 15px;
+    color: var(--grey-900);
+    font-weight: 500;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    background: var(--grey-900);
+    border-radius: 20px;
+    padding: 48px 40px;
+  }
+
+  .contact-form h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--grey-400);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--grey-800);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color var(--transition);
+    width: 100%;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--grey-500);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--yellow);
+  }
+
+  .form-group select option { background: var(--grey-800); }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--grey-900);
+    padding: 72px 5vw 32px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
+    gap: 48px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-brand {}
+
+  .footer-logo {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+
+  .footer-desc {
+    font-size: 14px;
+    color: var(--grey-500);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 24px;
+    max-width: 300px;
+  }
+
+  .social-links {
+    display: flex; gap: 10px;
+  }
+
+  .social-link {
+    width: 36px; height: 36px;
+    background: var(--grey-800);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all var(--transition);
+  }
+
+  .social-link:hover { background: var(--yellow); }
+
+  .footer-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 14px;
+    padding-bottom: 0;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; margin: 0; }
+
+  .footer-col a {
+    font-size: 14px;
+    color: var(--grey-500);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color var(--transition);
+    display: block;
+  }
+
+  .footer-col a:hover { color: var(--yellow); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--grey-500);
+  }
+
+  .footer-irdai {
+    font-size: 12px;
+    color: var(--grey-500);
+    background: var(--grey-800);
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(245,197,24,0.15);
+  }
+
+  .footer-irdai strong { color: var(--yellow); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-content { padding: 120px 0 40px; }
+    .hero-panel { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-section { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .audit-inner { grid-template-columns: 1fr; }
+    .audit-steps { grid-template-columns: 1fr 1fr; }
+    .offices-grid { grid-template-columns: 1fr; }
+    .partner-card { width: calc(50% - 10px); }
+    nav > ul { display: none; }
+    .hamburger { display: flex; }
+    .big-number-block { padding: 36px 28px; }
+  }
+
+  @media (max-width: 600px) {
+    .process-steps { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .cta-inner { flex-direction: column; }
+    .audit-steps { grid-template-columns: 1fr; }
+    .partner-card { width: calc(100% - 0px); }
+    .hero-trust { gap: 16px; }
+  }
+
+  /* ── FOOTER CONTACT COLUMN ── */
+  .footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .footer-contact-list li {
+    display: block;
+  }
+  .fc-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px;
+    padding: 6px 0;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    min-width: 0;
+  }
+  .fc-row:last-child { border-bottom: none; }
+  .fc-row:hover .fc-text { color: var(--white); }
+
+  .fc-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    overflow: hidden;
+  }
+  .fc-icon svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+    flex-shrink: 0;
+  }
+  .fc-row:hover .fc-icon { transform: scale(1.08); }
+
+  .fc-email    { background: var(--yellow); color: var(--grey-900); }
+  .fc-phone    { background: var(--yellow); color: var(--grey-900); }
+  .fc-mobile   { background: var(--yellow); color: var(--grey-900); }
+  .fc-whatsapp { background: #25D366; color: #ffffff; }
+  .fc-linkedin { background: #0A66C2; color: #ffffff; }
+  .fc-instagram {
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #ffffff;
+  }
+
+  .fc-text {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--grey-300);
+    transition: color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── PRODUCT DETAIL OVERLAY ── */
+  .product-overlay {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    padding: 24px;
+  }
+  .product-overlay.active {
+    opacity: 1; visibility: visible;
+    transition: opacity 0.25s ease, visibility 0s linear 0s;
+  }
+  .product-panel {
+    background: var(--white);
+    border-radius: 20px;
+    max-width: 680px; width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 48px;
+    position: relative;
+    transform: scale(0.95) translateY(16px);
+    transition: transform 0.25s ease;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+  }
+  .product-overlay.active .product-panel {
+    transform: scale(1) translateY(0);
+  }
+  .product-panel-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px;
+    background: var(--grey-100);
+    border: none; border-radius: 50%;
+    cursor: pointer; font-size: 18px;
+    display: grid; place-items: center;
+    color: var(--grey-700);
+    transition: background 0.2s;
+  }
+  .product-panel-close:hover { background: var(--yellow); }
+  .product-panel-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--yellow-dark);
+    background: var(--yellow-light); padding: 4px 12px;
+    border-radius: 4px; margin-bottom: 16px;
+  }
+  .product-panel-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+  .product-panel h2 {
+    font-size: 28px; font-weight: 700;
+    color: var(--grey-900); margin-bottom: 12px; line-height: 1.25;
+  }
+  .product-panel-lead {
+    font-size: 16px; font-weight: 400; color: var(--grey-600, #555);
+    line-height: 1.75; margin-bottom: 28px;
+    border-left: 3px solid var(--yellow);
+    padding-left: 16px;
+  }
+  .product-panel-body {
+    font-size: 15px; font-weight: 300;
+    color: var(--grey-600, #555); line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .product-panel-covers h4 {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--grey-900); margin-bottom: 14px;
+  }
+  .product-panel-covers ul {
+    list-style: none; display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .product-panel-covers li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: var(--grey-700); font-weight: 300; line-height: 1.5;
+  }
+  .product-panel-covers li::before {
+    content: '✓'; color: var(--yellow-dark); font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* Animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-logo">
+    <img src="logo.svg" alt="Insugo" style="height: 80px; width: auto;">
+  </div>
+  <div class="loader-bar-wrap">
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="logo">
+    <img src="logo.svg" alt="Insugo" style="height: 44px; width: auto;">
+  </a>
+  <ul id="navList">
+    <li><a href="#why">About Us</a></li>
+    <li><a href="#audit">Services</a></li>
+
+    <!-- Corporate Insurance -->
+    <li class="has-dropdown" id="corpNav">
+      <a href="#" onclick="return false;">Corporate Insurance <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown" id="corpDrop">
+        <div class="dd-item has-sub" id="sub-project">
+          <button class="dd-label">Project Insurance <span class="dd-arrow">›</span></button>
+          <div class="dd-sub">
+            <a href="#" onclick="showProduct('ear'); return false;">Erection All Risk Insurance</a>
+            <a href="#" onclick="showProduct('car'); return false;">Contractor's All Risk Insurance</a>
+            <a href="#" onclick="showProduct('cpm'); return false;">Contractor's Plant & Machinery</a>
+          </div>
+        </div>
+        <div class="dd-item has-sub" id="sub-liability">
+          <button class="dd-label">Liability Insurance <span class="dd-arrow">›</span></button>
+          <div class="dd-sub">
+            <a href="#" onclick="showProduct('do'); return false;">Directors & Officers Liability</a>
+            <a href="#" onclick="showProduct('eo'); return false;">Errors & Omissions Insurance</a>
+            <a href="#" onclick="showProduct('cgl'); return false;">Commercial General Liability</a>
+            <a href="#" onclick="showProduct('pl'); return false;">Public Liability</a>
+            <a href="#" onclick="showProduct('prl'); return false;">Product Liability</a>
+            <a href="#" onclick="showProduct('pi'); return false;">Professional Indemnity</a>
+          </div>
+        </div>
+        <div class="dd-item has-sub" id="sub-employee">
+          <button class="dd-label">Employee Benefits <span class="dd-arrow">›</span></button>
+          <div class="dd-sub">
+            <a href="#" onclick="showProduct('ghi'); return false;">Group Health Insurance</a>
+            <a href="#" onclick="showProduct('gpa'); return false;">Group Personal Accident</a>
+            <a href="#" onclick="showProduct('gtl'); return false;">Group Term Life Insurance</a>
+            <a href="#" onclick="showProduct('ggr'); return false;">Group Gratuity</a>
+          </div>
+        </div>
+        <div class="dd-item has-sub" id="sub-marine">
+          <button class="dd-label">Marine Insurance <span class="dd-arrow">›</span></button>
+          <div class="dd-sub">
+            <a href="#" onclick="showProduct('mop'); return false;">Marine Open Policy / Cover</a>
+            <a href="#" onclick="showProduct('sti'); return false;">Single Transit Insurance</a>
+            <a href="#" onclick="showProduct('stop'); return false;">Sales Turnover Transit (STOP)</a>
+          </div>
+        </div>
+        <div class="dd-item has-sub" id="sub-property">
+          <button class="dd-label">Property Insurance <span class="dd-arrow">›</span></button>
+          <div class="dd-sub">
+            <a href="#" onclick="showProduct('fire'); return false;">Fire Policy</a>
+            <a href="#" onclick="showProduct('sdp'); return false;">Stock Declaration Policy</a>
+            <a href="#" onclick="showProduct('iar'); return false;">Industrial All Risk Insurance</a>
+            <a href="#" onclick="showProduct('burglary'); return false;">Burglary Insurance</a>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <!-- Individual Insurance -->
+    <li class="has-dropdown" id="indivNav">
+      <a href="#" onclick="return false;">Individual Insurance <span class="nav-arrow">▾</span></a>
+      <div class="nav-dropdown" id="indivDrop">
+        <a class="dd-plain" href="#" onclick="showProduct('motor'); return false;">Motor Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('home'); return false;">Home Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('health'); return false;">Health Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('life'); return false;">Life Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('child'); return false;">Child Education Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('cyber'); return false;">Cyber Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('term'); return false;">Term Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('pet'); return false;">Pet Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('fleet'); return false;">Fleet Insurance</a>
+        <a class="dd-plain" href="#" onclick="showProduct('engineering'); return false;">Engineering Insurance</a>
+      </div>
+    </li>
+
+    <li><a href="#testimonials">Media</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get A Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PRODUCT DETAIL OVERLAY -->
+<div class="product-overlay" id="productOverlay" onclick="closeProduct(event)">
+  <div class="product-panel" id="productPanel">
+    <button class="product-panel-close" onclick="closeProductDirect()">✕</button>
+    <div class="product-panel-tag" id="ppTag"></div>
+    <span class="product-panel-icon" id="ppIcon"></span>
+    <h2 id="ppTitle"></h2>
+    <p class="product-panel-lead" id="ppLead"></p>
+    <p class="product-panel-body" id="ppBody"></p>
+    <div class="product-panel-covers">
+      <h4>What it covers</h4>
+      <ul id="ppCovers"></ul>
+    </div>
+    <a href="#contact" class="btn-primary" onclick="closeProductDirect()" style="display:inline-flex;">Get a Quote for This →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-text">IRDAI Licensed · Broker No. 694</div>
+    </div>
+
+    <h1>
+      Insurance you can
+      <strong>trust.</strong>
+      <em>Expertise you deserve.</em>
+    </h1>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-sub">
+      Insugo is Hyderabad's independent insurance broker — delivering unbiased, expert coverage for businesses and individuals across Telangana and Andhra Pradesh.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      <a href="" class="btn-ghost">View InsuGo Digi →</a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="trust-item">
+        <div class="trust-num">6+</div>
+        <div class="trust-label">Years operating</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-num">10000+</div>
+        <div class="trust-label">Clients served</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-num">4.9★</div>
+        <div class="trust-label">Rated on Justdial</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-panel">
+    <div class="panel-label">Coverage we offer</div>
+    <ul class="coverage-list">
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Group Health Insurance</span>
+        <span class="ci-tag">Corporate</span>
+      </li>
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Project Insurance (CAR / EAR)</span>
+        <span class="ci-tag">Construction</span>
+      </li>
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Directors & Officers Liability</span>
+        <span class="ci-tag">Corporate</span>
+      </li>
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Cyber Security Insurance</span>
+        <span class="ci-tag">Tech</span>
+      </li>
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Marine & Transit Insurance</span>
+        <span class="ci-tag">Logistics</span>
+      </li>
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Professional Indemnity</span>
+        <span class="ci-tag">Services</span>
+      </li>
+      <li class="coverage-item">
+        <div class="ci-dot"></div>
+        <span class="ci-name">Property & Motor Insurance</span>
+        <span class="ci-tag">All</span>
+      </li>
+    </ul>
+
+    <div class="irdai-strip">
+      <div class="irdai-icon-box">🏛️</div>
+      <div class="irdai-strip-text">
+        <div class="t1">IRDAI Approved Composite Broker</div>
+        <div class="t2">Licensed for Life & General Insurance · Since 2019</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>Project Insurance</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Group Health</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>D&O Liability</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Cyber Security</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Marine & Transit</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Property Insurance</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Professional Indemnity</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Motor Insurance</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item"><span class="marquee-dot"></span>Project Insurance</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Group Health</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>D&O Liability</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Cyber Security</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Marine & Transit</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Property Insurance</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Professional Indemnity</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Motor Insurance</div>
+  </div>
+</div>
+
+<!-- WHY INSUGO -->
+<section id="why">
+  <div class="why-section">
+    <div class="why-left fade-up">
+      <div class="section-label">Why Insugo</div>
+      <h2 class="section-heading">Your Interests.<br><em>Not Insurers'.</em></h2>
+      <p class="section-sub">Multiple insurance products often create confusion. Let the insurance experts guide you to pick the best suitable plans. With us, find the assistance that makes your insurance plans smart, practical, and helpful.</br>As an independent broker, we represent YOU, not any insurance company. That means unbiased advice and better deals.</p>
+
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-num">01</div>
+          <div>
+            <h4>IRDAI Licensed Broker</h4>
+            <p>Fully licensed with IRDAI License No. 694. We operate with complete regulatory compliance and transparency at every step.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-num">02</div>
+          <div>
+            <h4>Unbiased Multi-Insurer Access</h4>
+            <p>We compare plans across all major insurers — not just one. You get the best coverage at the best price, period.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-num">03</div>
+          <div>
+            <h4>Claims Advocacy</h4>
+            <p>We fight in your corner when it matters most. Our team manages claims end-to-end so you're never left alone.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-num">04</div>
+          <div>
+            <h4>Insurance Audit Services</h4>
+            <p>We identify gaps in your existing cover before they become costly surprises. A thorough audit protects you completely.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-right fade-up">
+      <div class="big-number-block">
+        <div class="big-n">694</div>
+        <div class="big-n-label">IRDAI License Number — established since 2019</div>
+        <div class="big-n-label">Insugo Insurance Brokers Pvt. Ltd. is authorised by the Insurance Regulatory and Development Authority of India to facilitate both Life and General Insurance programmes across India.</div>
+        
+        <div class="big-block-stats">
+          <div class="big-block-stat">
+            <div class="n">2019</div>
+            <div class="l">Year Founded</div>
+          </div>
+          <div class="big-block-stat">
+            <div class="n">4.9★</div>
+            <div class="l">Client Rating</div>
+          </div>
+          <div class="big-block-stat">
+            <div class="n">201+</div>
+            <div class="l">Reviews</div>
+          </div>
+          <div class="big-block-stat">
+            <div class="n">HYD</div>
+            <div class="l">Madhapur Office</div>
+          </div>
+        </div>
+      </div>
+      <div class="irdai-badge">
+        <div class="irdai-icon">🏛️</div>
+        <div class="irdai-text">
+          <div class="t1">IRDAI Approved</div>
+          <div class="t2">Composite Insurance Broker</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="section-label" style="color:var(--yellow);">How It Works</div>
+  <h2 class="section-heading">From Quote to<br><em style="color:var(--yellow);">Coverage</em> in 4 Steps</h2>
+  <p class="section-sub" style="color:var(--grey-500);">We've simplified insurance so you can focus on what you do best — running your life or business.</p>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-icon">💬</div>
+      <h4>Free Consultation</h4>
+      <p>Share your needs with our expert advisors. We understand your risk profile — business type, assets, team size, and goals.</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-icon">🔍</div>
+      <h4>Market Analysis</h4>
+      <p>We compare plans from all leading insurers to find you the most comprehensive coverage at the most competitive price.</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-icon">📄</div>
+      <h4>Policy Issuance</h4>
+      <p>Once you choose your plan, we handle all paperwork, documentation, and coordinate with the insurer for smooth issuance.</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="process-step" style="border-radius:0 16px 16px 0;">
+      <div class="step-num">04</div>
+      <div class="step-icon">🤝</div>
+      <h4>Ongoing Support</h4>
+      <p>We manage renewals, claims, and policy updates year-round. Your dedicated advisor is just a call away, always.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSURANCE AUDIT -->
+<section class="audit-section" id="audit">
+  <div class="section-label">Specialised Service</div>
+  <h2 class="section-heading">Covering Your Insurance Gaps —<br><em>Insurance Audit</em></h2>
+
+  <div class="audit-inner">
+    <div>
+      <p style="font-size:16px;font-weight:300;color:var(--grey-600,#555);line-height:1.8;margin-bottom:24px;">
+        An insurance audit is like a health check for your policies. We review all your existing coverage — annual premiums, coverage limits, cross-product benefits, and gaps — against your current risk profile. Our only objective is to bring you the right solution that maps to your present risk tolerance.
+      </p>
+      <p style="font-size:15px;font-weight:400;color:var(--grey-700);line-height:1.7;">
+        Many businesses are either over-insured in areas they don't need or dangerously under-covered where it matters. An Insugo audit ensures every rupee of premium works hard for you.
+      </p>
+      <a href="#contact" class="btn-primary" style="margin-top:32px; display:inline-flex;">Request an Audit →</a>
+    </div>
+  </div>
+
+  <div class="audit-steps">
+    <div class="audit-step fade-up">
+      <div class="audit-step-icon">📊</div>
+      <h4>Risk Analysis</h4>
+      <p>Inspecting the amount of risk involved and analysing the risks specific to your business and industry.</p>
+    </div>
+    <div class="audit-step fade-up">
+      <div class="audit-step-icon">📋</div>
+      <h4>Coverage Assessment</h4>
+      <p>Assessment of the present insurance coverage and costs involved — identifying over-coverage and gaps.</p>
+    </div>
+    <div class="audit-step fade-up">
+      <div class="audit-step-icon">🔮</div>
+      <h4>Future Obligations</h4>
+      <p>Identifying future premium obligations and recommending the optimal coverage structure going forward.</p>
+    </div>
+    <div class="audit-step fade-up">
+      <div class="audit-step-icon">🏷️</div>
+      <h4>Premium Optimisation</h4>
+      <p>Finding opportunities to enhance coverage with improved features without increasing your premium outgo.</p>
+    </div>
+    <div class="audit-step fade-up">
+      <div class="audit-step-icon">📝</div>
+      <h4>Detailed Report</h4>
+      <p>A comprehensive audit report with actionable recommendations, presented clearly to your decision makers.</p>
+    </div>
+    <div class="audit-step fade-up">
+      <div class="audit-step-icon">🤝</div>
+      <h4>Implementation Support</h4>
+      <p>We don't just audit — we help you implement the recommendations with the right insurers and terms.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ASSOCIATED COMPANIES -->
+<section class="partners-section" id="partners">
+  <div style="text-align:center; margin-bottom: 48px;">
+    <div class="section-label" style="justify-content:center;">Our Network</div>
+    <h2 class="section-heading" style="text-align:center;">Our Associated <em>Companies</em></h2>
+    <p class="section-sub" style="margin:12px auto 0; text-align:center;">We work with all major IRDAI-registered insurers — giving you access to the widest range of products and the most competitive premiums.</p>
+  </div>
+
+  <div class="partners-marquee-wrap">
+    <!-- Row 1 scrolls left -->
+    <div class="partners-marquee-row">
+      <div class="partners-marquee-track">
+        <div class="partner-card"><img src="partners/icici-prudential.png" alt="ICICI Prudential" class="partner-img"><span class="partner-fallback-name">ICICI Prudential</span></div>
+        <div class="partner-card"><img src="partners/icici-lombard.png" alt="ICICI Lombard" class="partner-img"><span class="partner-fallback-name">ICICI Lombard</span></div>
+        <div class="partner-card"><img src="partners/iffco-tokio.png" alt="Iffco Tokio" class="partner-img"><span class="partner-fallback-name">Iffco Tokio</span></div>
+        <div class="partner-card"><img src="partners/kotak-gi.png" alt="Kotak GI" class="partner-img"><span class="partner-fallback-name">Kotak GI</span></div>
+        <div class="partner-card"><img src="partners/liberty.png" alt="Liberty" class="partner-img"><span class="partner-fallback-name">Liberty</span></div>
+        <div class="partner-card"><img src="partners/lic.png" alt="LIC" class="partner-img"><span class="partner-fallback-name">LIC</span></div>
+        <div class="partner-card"><img src="partners/magma-hdi.png" alt="MAGMA HDI" class="partner-img"><span class="partner-fallback-name">MAGMA HDI</span></div>
+        <div class="partner-card"><img src="partners/national-insurance.png" alt="National Insurance" class="partner-img"><span class="partner-fallback-name">National Insurance</span></div>
+        <div class="partner-card"><img src="partners/niva-bupa.png" alt="Niva Bupa" class="partner-img"><span class="partner-fallback-name">Niva Bupa</span></div>
+        <div class="partner-card"><img src="partners/oriental-insurance.png" alt="Oriental Insurance" class="partner-img"><span class="partner-fallback-name">Oriental Insurance</span></div>
+        <div class="partner-card"><img src="partners/reliance-health.png" alt="Reliance Health Insurance" class="partner-img"><span class="partner-fallback-name">Reliance Health</span></div>
+        <div class="partner-card"><img src="partners/royal-sundaram.png" alt="Royal Sundaram" class="partner-img"><span class="partner-fallback-name">Royal Sundaram</span></div>
+        <div class="partner-card"><img src="partners/sbi-general.png" alt="SBI General" class="partner-img"><span class="partner-fallback-name">SBI General</span></div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="partner-card"><img src="partners/icici-prudential.png" alt="ICICI Prudential" class="partner-img"><span class="partner-fallback-name">ICICI Prudential</span></div>
+        <div class="partner-card"><img src="partners/icici-lombard.png" alt="ICICI Lombard" class="partner-img"><span class="partner-fallback-name">ICICI Lombard</span></div>
+        <div class="partner-card"><img src="partners/iffco-tokio.png" alt="Iffco Tokio" class="partner-img"><span class="partner-fallback-name">Iffco Tokio</span></div>
+        <div class="partner-card"><img src="partners/kotak-gi.png" alt="Kotak GI" class="partner-img"><span class="partner-fallback-name">Kotak GI</span></div>
+        <div class="partner-card"><img src="partners/liberty.png" alt="Liberty" class="partner-img"><span class="partner-fallback-name">Liberty</span></div>
+        <div class="partner-card"><img src="partners/lic.png" alt="LIC" class="partner-img"><span class="partner-fallback-name">LIC</span></div>
+        <div class="partner-card"><img src="partners/magma-hdi.png" alt="MAGMA HDI" class="partner-img"><span class="partner-fallback-name">MAGMA HDI</span></div>
+        <div class="partner-card"><img src="partners/national-insurance.png" alt="National Insurance" class="partner-img"><span class="partner-fallback-name">National Insurance</span></div>
+        <div class="partner-card"><img src="partners/ai.png" alt="AI" class="partner-img"><span class="partner-fallback-name">AI</span></div>
+        <div class="partner-card"><img src="partners/niva-bupa.png" alt="Niva Bupa" class="partner-img"><span class="partner-fallback-name">Niva Bupa</span></div>
+        <div class="partner-card"><img src="partners/oriental-insurance.png" alt="Oriental Insurance" class="partner-img"><span class="partner-fallback-name">Oriental Insurance</span></div>
+        <div class="partner-card"><img src="partners/reliance-health.png" alt="Reliance Health Insurance" class="partner-img"><span class="partner-fallback-name">Reliance Health</span></div>
+        <div class="partner-card"><img src="partners/royal-sundaram.png" alt="Royal Sundaram" class="partner-img"><span class="partner-fallback-name">Royal Sundaram</span></div>
+        <div class="partner-card"><img src="partners/sbi-general.png" alt="SBI General" class="partner-img"><span class="partner-fallback-name">SBI General</span></div>
+      </div>
+    </div>
+
+    <!-- Row 2 scrolls right (reverse) -->
+    <div class="partners-marquee-row" style="margin-top:16px;">
+      <div class="partners-marquee-track partners-marquee-reverse">
+        <div class="partner-card"><img src="partners/sbi-life.png" alt="SBI Life" class="partner-img"><span class="partner-fallback-name">SBI Life</span></div>
+        <div class="partner-card"><img src="partners/shriram-gi.png" alt="SHRIRAM GI" class="partner-img"><span class="partner-fallback-name">SHRIRAM GI</span></div>
+        <div class="partner-card"><img src="partners/tata-aig.png" alt="TATA AIG" class="partner-img"><span class="partner-fallback-name">TATA AIG</span></div>
+        <div class="partner-card"><img src="partners/united-india.png" alt="United India" class="partner-img"><span class="partner-fallback-name">United India</span></div>
+        <div class="partner-card"><img src="partners/aditya-birla.png" alt="Aditya Birla Capital" class="partner-img"><span class="partner-fallback-name">Aditya Birla Capital</span></div>
+        <div class="partner-card"><img src="partners/digit.png" alt="Digit" class="partner-img"><span class="partner-fallback-name">Digit</span></div>
+        <div class="partner-card"><img src="partners/edelweiss.png" alt="Edelweiss" class="partner-img"><span class="partner-fallback-name">Edelweiss</span></div>
+        <div class="partner-card"><img src="partners/hdfc-life.png" alt="HDFC Life" class="partner-img"><span class="partner-fallback-name">HDFC Life</span></div>
+        <div class="partner-card"><img src="partners/hdfc-ergo.png" alt="HDFC Ergo" class="partner-img"><span class="partner-fallback-name">HDFC Ergo</span></div>
+        <div class="partner-card"><img src="partners/chola-ms.png" alt="Chola MS" class="partner-img"><span class="partner-fallback-name">Chola MS</span></div>
+        <div class="partner-card"><img src="partners/bajaj-allianz.png" alt="Bajaj Allianz" class="partner-img"><span class="partner-fallback-name">Bajaj Allianz</span></div>
+        <div class="partner-card"><img src="partners/care-health.png" alt="Care Health" class="partner-img"><span class="partner-fallback-name">Care Health</span></div>
+        <div class="partner-card"><img src="partners/future-generali.png" alt="Future Generali" class="partner-img"><span class="partner-fallback-name">Future Generali</span></div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="partner-card"><img src="partners/sbi-life.png" alt="SBI Life" class="partner-img"><span class="partner-fallback-name">SBI Life</span></div>
+        <div class="partner-card"><img src="partners/shriram-gi.png" alt="SHRIRAM GI" class="partner-img"><span class="partner-fallback-name">SHRIRAM GI</span></div>
+        <div class="partner-card"><img src="partners/tata-aig.png" alt="TATA AIG" class="partner-img"><span class="partner-fallback-name">TATA AIG</span></div>
+        <div class="partner-card"><img src="partners/united-india.png" alt="United India" class="partner-img"><span class="partner-fallback-name">United India</span></div>
+        <div class="partner-card"><img src="partners/aditya-birla.png" alt="Aditya Birla Capital" class="partner-img"><span class="partner-fallback-name">Aditya Birla Capital</span></div>
+        <div class="partner-card"><img src="partners/digit.png" alt="Digit" class="partner-img"><span class="partner-fallback-name">Digit</span></div>
+        <div class="partner-card"><img src="partners/edelweiss.png" alt="Edelweiss" class="partner-img"><span class="partner-fallback-name">Edelweiss</span></div>
+        <div class="partner-card"><img src="partners/hdfc-life.png" alt="HDFC Life" class="partner-img"><span class="partner-fallback-name">HDFC Life</span></div>
+        <div class="partner-card"><img src="partners/hdfc-ergo.png" alt="HDFC Ergo" class="partner-img"><span class="partner-fallback-name">HDFC Ergo</span></div>
+        <div class="partner-card"><img src="partners/chola-ms.png" alt="Chola MS" class="partner-img"><span class="partner-fallback-name">Chola MS</span></div>
+        <div class="partner-card"><img src="partners/bajaj-allianz.png" alt="Bajaj Allianz" class="partner-img"><span class="partner-fallback-name">Bajaj Allianz</span></div>
+        <div class="partner-card"><img src="partners/care-health.png" alt="Care Health" class="partner-img"><span class="partner-fallback-name">Care Health</span></div>
+        <div class="partner-card"><img src="partners/future-generali.png" alt="Future Generali" class="partner-img"><span class="partner-fallback-name">Future Generali</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="section-label">Client Stories</div>
+  <h2 class="section-heading">Trusted by <em>Hundreds</em><br>Across Hyderabad</h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p>Insugo helped us set up group health insurance for our 80-person team in record time. The process was seamless and the coverage is excellent.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">RK</div>
+        <div>
+          <div class="author-name">Ramesh K.</div>
+          <div class="author-role">CEO, IT Services Company · Hyderabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p>When our car was damaged, Insugo handled the entire claim. The settlement came through in under 48 hours. I was genuinely impressed.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">PS</div>
+        <div>
+          <div class="author-name">Priya S.</div>
+          <div class="author-role">Individual Client · Secunderabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <span class="quote-mark">"</span>
+      <p>Their insurance audit found two major gaps in our existing policies. That review alone saved us from what could have been a massive uninsured loss.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AM</div>
+        <div>
+          <div class="author-name">Anil M.</div>
+          <div class="author-role">MD, Construction Firm · Vijayawada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:48px;">
+    <p style="font-size:14px;color:var(--grey-500);margin-bottom:16px;">Rated 4.9/5 based on 201 reviews on Justdial</p>
+    <div style="display:flex; justify-content:center; gap:8px; font-size:28px; color:var(--yellow);">★★★★★</div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Ready to Get<br>Properly Covered?</h2>
+      <p>No pressure. No jargon. Just the right insurance for you.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-dark">Get Free Quote →</a>
+      <a href="tel:+914040123456" class="btn-outline-dark">📞 Call Us Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- OFFICES -->
+<section class="offices-section" id="contact">
+  <div class="section-label">Our Locations</div>
+  <h2 class="section-heading">Find Us <em>Near You</em></h2>
+  <p class="section-sub">We can assist you in selecting the right risk coverage schemes for all your Life and Non-Life Insurance requirements.</p>
+
+  <div class="offices-grid">
+    <!-- Hyderabad -->
+    <div class="office-card fade-up">
+      <div class="office-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2!2d78.3718!3d17.4401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93e5b4ef1c03%3A0x6c9e2ef5cdb2e3e4!2sKTC%20Illumination%2C%20Vittal%20Rao%20Nagar%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081!5e0!3m2!1sen!2sin!4v1"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="https://maps.google.com/?q=KTC+Illumination+Vittal+Rao+Nagar+Madhapur+Hyderabad" target="_blank" class="maps-link">🗺 Maps ↗</a>
+      </div>
+      <div class="office-body">
+        <div class="office-title">Corporate Office</div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📍</span>
+          <span class="office-detail-text">4th Floor, KTC Illumination, 509 & 510, Vittal Rao Nagar, Madhapur, Hyderabad – 500081, Telangana</span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">✉️</span>
+          <span class="office-detail-text"><a href="mailto:info@insugo.in">info@insugo.in</a></span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📞</span>
+          <span class="office-detail-text"><a href="tel:04043464206">040-43464206</a></span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📱</span>
+          <span class="office-detail-text"><a href="tel:+919179174447">+91 9179174447</a></span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">💬</span>
+          <span class="office-detail-text"><a href="tel:+919676056688">+91 9676056688</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bengaluru -->
+    <div class="office-card fade-up">
+      <div class="office-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.6!2d77.6117!3d12.9729!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1683e37d6737%3A0x6cc79d3ed0f4b534!2sRaheja%20Towers%2C%2026%2C%20Mahatma%20Gandhi%20Rd%2C%20Craig%20Park%20Layout%2C%20Ashok%20Nagar%2C%20Bengaluru%2C%20Karnataka%20560001!5e0!3m2!1sen!2sin!4v1"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="https://maps.google.com/?q=Raheja+Towers+Gandhi+Road+Craig+Park+Layout+Bengaluru" target="_blank" class="maps-link">🗺 Maps ↗</a>
+      </div>
+      <div class="office-body">
+        <div class="office-title">Bengaluru Office</div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📍</span>
+          <span class="office-detail-text">7th Floor, 26/27, Raheja Towers, Gandhi Road, Craig Park Layout, Bengaluru, Karnataka – 560001</span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">✉️</span>
+          <span class="office-detail-text"><a href="mailto:info@insugo.in">info@insugo.in</a></span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📱</span>
+          <span class="office-detail-text"><a href="tel:+918977244427">+91 89772 44427</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vijayawada -->
+    <div class="office-card fade-up">
+      <div class="office-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4!2d80.6521!3d16.5011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35eff9a1234567%3A0xabcdef1234567890!2sKala%20Nagar%20Rd%2C%20near%20Benz%20Circle%2C%20Vijayawada%2C%20Andhra%20Pradesh%20520010!5e0!3m2!1sen!2sin!4v1"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="https://maps.google.com/?q=SSKK+Plaza+Kala+Nagar+Benz+Circle+Vijayawada" target="_blank" class="maps-link">🗺 Maps ↗</a>
+      </div>
+      <div class="office-body">
+        <div class="office-title">Vijayawada Office</div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📍</span>
+          <span class="office-detail-text">SSKK Plaza, Shop No-302, Kala Nagar Rd, near Benz Circle, Vijayawada, Andhra Pradesh – 520010</span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">✉️</span>
+          <span class="office-detail-text"><a href="mailto:info@insugo.in">info@insugo.in</a></span>
+        </div>
+        <div class="office-detail">
+          <span class="office-detail-icon">📞</span>
+          <span class="office-detail-text"><a href="tel:08663559650">0866-3559650</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section id="quote" style="background:var(--white);">
+  <div class="contact-section">
+    <div class="contact-info fade-up">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-heading">Let's Talk<br><em>Insurance.</em></h2>
+      <p class="section-sub">Our experts are ready to help you find the right coverage — completely free of charge and without any obligation.</p>
+
+      <div class="contact-details" style="margin-top:36px;">
+        <div class="contact-row">
+          <div class="c-icon">✉️</div>
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-value">info@insugo.in</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-label">Hyderabad</div>
+            <div class="c-value">040-43464206</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon">🕐</div>
+          <div>
+            <div class="c-label">Business Hours</div>
+            <div class="c-value">Mon – Sat: 9:30 AM – 6:30 PM</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon">🏛️</div>
+          <div>
+            <div class="c-label">IRDAI License</div>
+            <div class="c-value">Composite Broker · License No. 694</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form fade-up">
+      <h3>Get Your Free Quote</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Ravi">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Kumar">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="ravi@company.com">
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+91 98765 43210">
+      </div>
+
+      <div class="form-group">
+        <label>Insurance Type</label>
+        <select>
+          <option value="" disabled selected>Select coverage type</option>
+          <option>Group Health Insurance</option>
+          <option>Project Insurance (CAR/EAR)</option>
+          <option>Liability Insurance</option>
+          <option>Employee Benefits</option>
+          <option>Cyber Security Insurance</option>
+          <option>Property Insurance</option>
+          <option>Marine & Transit Insurance</option>
+          <option>Professional Indemnity</option>
+          <option>Motor Insurance</option>
+          <option>Insurance Audit</option>
+          <option>Not Sure – Need Guidance</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Message (Optional)</label>
+        <textarea placeholder="Tell us about your business or specific coverage needs..."></textarea>
+      </div>
+
+      <button class="btn-primary" style="width:100%; justify-content:center; border:none; cursor:pointer; font-size:15px;" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">
+        Send My Request →
+      </button>
+
+      <p style="font-size:12px; color:var(--grey-500); margin-top:16px; text-align:center;">
+        We never share your details. No spam, ever.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <img src="logo.svg" alt="Insugo" style="height: 44px; width: auto;">
+      </a>
+      <p class="footer-desc">
+        IRDAI-licensed insurance broker in Hyderabad, delivering unbiased coverage solutions for businesses and individuals since 2019.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#" onclick="showProduct('ghi');return false;">Group Health Insurance</a></li>
+        <li><a href="#" onclick="showProduct('ear');return false;">Project Insurance</a></li>
+        <li><a href="#" onclick="showProduct('cyber');return false;">Cyber Insurance</a></li>
+        <li><a href="#" onclick="showProduct('do');return false;">D&O Liability</a></li>
+        <li><a href="#" onclick="showProduct('mop');return false;">Marine & Transit</a></li>
+        <li><a href="#" onclick="showProduct('motor');return false;">Motor Insurance</a></li>
+        <li><a href="#audit">Insurance Audit</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#why">About Us</a></li>
+        <li><a href="#audit">Our Services</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#partners">Our Partners</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Us column — matches screenshot design -->
+    <div class="footer-col footer-contact-col">
+      <h4>Contact Us</h4>
+      <ul class="footer-contact-list">
+        <li>
+          <a href="mailto:info@insugo.in" class="fc-row">
+            <span class="fc-icon fc-email">
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0.5" y="0.5" width="15" height="11" rx="1.5" stroke="currentColor"/><path d="M1 1l7 6 7-6" stroke="currentColor" stroke-linecap="round"/></svg>
+            </span>
+            <span class="fc-text">info@insugo.in</span>
+          </a>
+        </li>
+        <li>
+          <a href="tel:04043464206" class="fc-row">
+            <span class="fc-icon fc-phone">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 1h3l1.5 3.5-1.5 1c.7 1.4 1.6 2.3 3 3l1-1.5L12.5 8.5v3a1 1 0 01-1 1C4.5 13 1 6 1 2a1 1 0 011-1z" stroke="currentColor" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="fc-text">040-43464206</span>
+          </a>
+        </li>
+        <li>
+          <a href="tel:+919179174447" class="fc-row">
+            <span class="fc-icon fc-mobile">
+              <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><rect x="0.5" y="0.5" width="9" height="15" rx="1.5" stroke="currentColor"/><circle cx="5" cy="13" r="0.75" fill="currentColor"/></svg>
+            </span>
+            <span class="fc-text">+91 9179174447</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://wa.me/919676056688" target="_blank" class="fc-row">
+            <span class="fc-icon fc-whatsapp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </span>
+            <span class="fc-text">+91 9676056688</span>
+          </a>
+        </li>
+        <li>
+          <!-- ↓ REPLACE WITH YOUR LINKEDIN URL -->
+          <a href="https://linkedin.com/company/insugoinsurance" target="_blank" class="fc-row">
+            <span class="fc-icon fc-linkedin">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </span>
+            <span class="fc-text">insugoinsurance</span>
+          </a>
+        </li>
+        <li>
+          <!-- ↓ REPLACE # WITH YOUR INSTAGRAM URL e.g. https://instagram.com/insugoinsurance -->
+          <a href="https://instagram.com/insugoinsurance" target="_blank" class="fc-row">
+            <span class="fc-icon fc-instagram">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="0.5" y="0.5" width="15" height="15" rx="4" stroke="currentColor"/><circle cx="8" cy="8" r="3" stroke="currentColor"/><circle cx="12" cy="4" r="0.75" fill="currentColor"/></svg>
+            </span>
+            <span class="fc-text">insugoinsurance</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      © 2025 Insugo Insurance Brokers Pvt. Ltd. All rights reserved.
+    </div>
+    <div class="footer-irdai">
+      IRDAI License No. <strong>694</strong> · Composite Insurance Broker · CIN: U66010TG2018PTC129252
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─────────────── LOADER ─────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1900); // bar takes ~1.9s total
+});
+
+/* ─────────────── PRODUCT DATA ─────────────── */
+const products = {
+  /* PROJECT */
+  ear: {
+    tag: 'Project Insurance', icon: '🏗️',
+    title: 'Erection All Risk Insurance',
+    lead: 'Comprehensive coverage for machinery, equipment, and civil works during the erection and installation of plant and machinery.',
+    body: 'EAR insurance protects contractors, sub-contractors, and project owners against sudden and unforeseen physical loss or damage during the erection phase of industrial plants, machinery, steel structures, and mechanical/electrical installations. It covers from the time of unloading at site until the project is handed over.',
+    covers: ['Loss or damage during erection, testing, and commissioning', 'Third-party bodily injury and property damage', 'Damage during storage at project site', 'Damage caused by faulty design, material, or workmanship', 'Natural perils: flood, storm, earthquake, and landslide']
+  },
+  car: {
+    tag: 'Project Insurance', icon: '🏗️',
+    title: "Contractor's All Risk Insurance",
+    lead: "Protects construction projects against material damage and third-party liability from the first day of work to project completion.",
+    body: "CAR Insurance is essential for builders, contractors, and project owners undertaking civil engineering and building construction projects. It provides 'all risks' cover for the contract works and construction machinery, meaning any sudden and unforeseen physical loss or damage during the period of construction is covered unless specifically excluded.",
+    covers: ['Damage to the works under construction', 'Damage to construction plant, equipment, and machinery', 'Third-party property damage and bodily injury', 'Collapse of structures during construction', 'Fire, flood, storm, theft, and vandalism at site']
+  },
+  cpm: {
+    tag: 'Project Insurance', icon: '⚙️',
+    title: "Contractor's Plant & Machinery",
+    lead: "Coverage for owned or leased plant, machinery, and equipment against sudden and accidental physical loss or damage.",
+    body: "CPM Insurance covers construction equipment such as excavators, cranes, bulldozers, and other heavy machinery against accidental damage. Unlike CAR, this policy follows the machine across different project sites — it's not tied to a specific project or location. Ideal for contractors who move equipment across multiple sites.",
+    covers: ['Accidental damage to plant and machinery', 'Damage during loading, unloading, and transit between sites', 'Operator error and negligence', 'Fire, theft, and malicious damage', 'Overturning and collision of mobile equipment']
+  },
+  /* LIABILITY */
+  do: {
+    tag: 'Liability Insurance', icon: '🛡️',
+    title: 'Directors & Officers Liability',
+    lead: "Protects the personal assets of directors and officers when they are sued for alleged wrongful acts in managing the company.",
+    body: "D&O insurance covers legal costs, settlements, and judgements arising from claims made against company directors and officers for decisions they made in their managerial capacity. With increasing regulatory scrutiny, shareholder activism, and rising litigation, D&O is now an essential corporate cover in India.",
+    covers: ['Legal defence costs and settlements', 'Regulatory investigations and enforcement actions', 'Shareholder derivative suits', 'Employment practices claims against senior management', 'Breach of fiduciary duty and misrepresentation claims']
+  },
+  eo: {
+    tag: 'Liability Insurance', icon: '📋',
+    title: 'Errors & Omissions Insurance',
+    lead: "Protects service-based businesses from claims that a mistake or failure in their work caused a client financial loss.",
+    body: "E&O insurance (also called Professional Indemnity in some contexts) is critical for businesses that provide professional advice or services — IT firms, consultants, architects, engineers, and more. If a client claims your work was negligent or inadequate and files a lawsuit, E&O covers your defence and any resulting settlements.",
+    covers: ['Claims of negligent professional services', 'Mistakes, errors, and oversights in deliverables', 'Failure to deliver services as contracted', 'Copyright infringement in work product', 'Legal defence costs even for groundless claims']
+  },
+  cgl: {
+    tag: 'Liability Insurance', icon: '🏢',
+    title: 'Commercial General Liability',
+    lead: "Broad liability coverage for businesses against third-party claims of bodily injury, property damage, and personal injury.",
+    body: "CGL is the foundation of most corporate insurance programmes. It protects your business when a customer, visitor, or member of the public suffers injury on your premises or your operations cause damage to third-party property. CGL is often required before entering into contracts with larger clients or government bodies.",
+    covers: ['Bodily injury to third parties on your premises', 'Third-party property damage caused by your operations', 'Personal and advertising injury (libel, slander)', 'Medical expenses for on-site accidents', 'Legal defence and settlement costs']
+  },
+  pl: {
+    tag: 'Liability Insurance', icon: '⚖️',
+    title: 'Public Liability Insurance',
+    lead: "Protects your business from legal liability for accidental injury or property damage caused to members of the public.",
+    body: "Public Liability Insurance is essential for businesses that interact with customers, clients, or the general public — whether at a physical premises, at events, or during field operations. It covers the legal costs and compensation if a member of the public is injured or their property is damaged due to your business activities.",
+    covers: ['Accidental injury to customers, visitors, or bystanders', 'Damage to third-party property', 'Legal costs and representation fees', 'Medical treatment expenses', 'Events, exhibitions, and temporary site operations']
+  },
+  prl: {
+    tag: 'Liability Insurance', icon: '📦',
+    title: 'Product Liability Insurance',
+    lead: "Covers your business if a product you manufacture, sell, or distribute causes injury or property damage to a consumer.",
+    body: "If a product you've made, distributed, or sold causes harm to a consumer, you can be held legally responsible — even if the defect occurred earlier in the supply chain. Product Liability Insurance pays for the legal costs and compensation. It's essential for manufacturers, importers, distributors, and retailers.",
+    covers: ['Injury caused by a defective product', 'Property damage resulting from product failure', 'Legal defence costs and court fees', 'Recall-related liability', 'Claims arising in India and, optionally, internationally']
+  },
+  pi: {
+    tag: 'Liability Insurance', icon: '📝',
+    title: 'Professional Indemnity',
+    lead: "Protects professionals and businesses from claims of negligence, error, or omission in the delivery of professional services.",
+    body: "Professional Indemnity (PI) insurance is designed for anyone who gives professional advice or provides expert services — doctors, architects, lawyers, IT companies, consultants, and financial advisors. A single claim of negligence can be financially devastating. PI Insurance ensures your legal defence and any awarded damages are covered.",
+    covers: ['Negligent acts, errors, and omissions in services', 'Breach of professional duty', 'Breach of confidentiality and data loss', 'Intellectual property infringement', 'Legal defence costs, even for baseless claims']
+  },
+  /* EMPLOYEE BENEFITS */
+  ghi: {
+    tag: 'Employee Benefits', icon: '🏥',
+    title: 'Group Health Insurance',
+    lead: "A comprehensive mediclaim policy for your employees and their families — one of the most valued workplace benefits.",
+    body: "Group Health Insurance covers hospitalisation expenses, day-care procedures, pre and post-hospitalisation costs, and critical illness. Employers can customise the sum insured, add-ons (maternity, OPD, dental), and family coverage. A strong group health plan significantly improves employee retention and satisfaction.",
+    covers: ['In-patient hospitalisation (room, ICU, surgery)', 'Pre and post-hospitalisation expenses', 'Day-care procedures (no overnight stay needed)', 'Maternity and newborn cover (optional add-on)', 'Cashless treatment at 10,000+ network hospitals']
+  },
+  gpa: {
+    tag: 'Employee Benefits', icon: '🦺',
+    title: 'Group Personal Accident Insurance',
+    lead: "Financial protection for employees and their families in the event of accidental death, disability, or injury.",
+    body: "Group Personal Accident Insurance pays a lump sum or weekly benefit when an employee is involved in an accident that results in death, permanent disability, or temporary disability. It is an affordable way to provide significant financial security to your workforce and is often mandatory under certain labour laws.",
+    covers: ['Accidental death benefit (capital sum insured)', 'Permanent total and partial disability', 'Temporary total disability (weekly benefit)', 'Medical expenses reimbursement (optional)', 'Worldwide coverage, 24 × 7']
+  },
+  gtl: {
+    tag: 'Employee Benefits', icon: '❤️',
+    title: 'Group Term Life Insurance',
+    lead: "Provides a tax-free death benefit to the employee's family if they pass away during their tenure.",
+    body: "Group Term Life is a pure life cover offered to all employees as a benefit. The sum assured is typically a multiple of the annual salary (1x–5x) and is paid to the nominee if the employee dies during the policy period. Premiums are generally lower than individual policies, and no medical tests are required for standard coverage.",
+    covers: ['Death benefit paid to the nominee', 'Accidental death benefit rider (optional)', 'Critical illness rider (optional)', 'No medical underwriting for standard cover', 'Flexible sum assured multiples of salary']
+  },
+  ggr: {
+    tag: 'Employee Benefits', icon: '💰',
+    title: 'Group Gratuity Insurance',
+    lead: "A funding vehicle that helps employers manage their statutory gratuity obligation in a disciplined, tax-efficient way.",
+    body: "Under the Payment of Gratuity Act, 1972, every employer with 10 or more employees is legally required to pay gratuity on retirement or resignation (after 5 years). Group Gratuity Insurance helps companies pre-fund this liability through an insurance policy, providing tax benefits and ensuring funds are available when needed.",
+    covers: ['Actuarial valuation of gratuity liability', 'Tax deduction on contributions under IT Act', 'Managed by a Life Insurance company in a separate trust fund', 'Flexible top-up contributions as workforce grows', 'Death benefit — gratuity paid immediately on death regardless of tenure']
+  },
+  /* MARINE */
+  mop: {
+    tag: 'Marine Insurance', icon: '🚢',
+    title: 'Marine Open Policy / Cover',
+    lead: "An ongoing marine policy for businesses that regularly ship goods — covering every consignment under a single, renewable policy.",
+    body: "A Marine Open Policy (MOP) is ideal for traders, manufacturers, and exporters who have frequent shipments. Instead of taking out a new policy for every consignment, a single MOP covers all shipments within the agreed terms. You simply declare each consignment, and the insurer confirms coverage.",
+    covers: ['All consignments during the policy period', 'Import, export, and coastal transit', 'Damage, loss, theft, and non-delivery', 'Perils of the sea: storms, sinking, collision', 'Strike, riot, and civil commotion (optional add-on)']
+  },
+  sti: {
+    tag: 'Marine Insurance', icon: '🚛',
+    title: 'Single Transit Insurance',
+    lead: "A one-time policy covering a specific consignment from origin to destination.",
+    body: "Single Transit Insurance is ideal for businesses or individuals with occasional shipments who don't need a continuing open cover. Each policy is tailored to a specific consignment, route, and sum insured. It provides the same breadth of cover as an open policy but on a per-shipment basis.",
+    covers: ['Physical loss or damage to the cargo', 'Inland transit by road, rail, or courier', 'Sea and air freight shipments', 'Loading and unloading risks', 'All-risk or named-perils cover options']
+  },
+  stop: {
+    tag: 'Marine Insurance', icon: '📊',
+    title: 'Sales Turnover Transit (STOP)',
+    lead: "A simplified marine cover for businesses where the annual premium is based on total sales turnover rather than individual declarations.",
+    body: "The STOP policy is perfect for manufacturers and distributors who sell and dispatch goods throughout the year. Instead of declaring each consignment, your premium is calculated on your annual sales turnover. It simplifies administration dramatically while ensuring every dispatch is covered automatically.",
+    covers: ['All domestic dispatches automatically covered', 'Premium based on turnover — no per-shipment declarations', 'Goods in transit from warehouse to customer', 'Damage during loading, transit, and unloading', 'Suitable for FMCG, manufacturing, and distribution businesses']
+  },
+  /* PROPERTY */
+  fire: {
+    tag: 'Property Insurance', icon: '🔥',
+    title: 'Fire Policy',
+    lead: "Protects your building, contents, and stock against fire and allied perils such as lightning, explosion, and storm.",
+    body: "The Standard Fire and Special Perils Policy is the cornerstone of property insurance in India. It covers physical damage to property caused by fire and a list of named perils. It can be extended to cover earthquake, terrorism, and other perils through add-on endorsements. Suitable for shops, offices, factories, and warehouses.",
+    covers: ['Fire and lightning damage', 'Explosion and implosion', 'Storm, cyclone, typhoon, and flood', 'Riots, strikes, and malicious damage', 'Impact damage from vehicles or aircraft']
+  },
+  sdp: {
+    tag: 'Property Insurance', icon: '📦',
+    title: 'Stock Declaration Policy',
+    lead: "A flexible fire policy where the sum insured is adjusted monthly based on actual stock levels, avoiding over or under-insurance.",
+    body: "The Stock Declaration Policy is designed for businesses where stock values fluctuate throughout the year — traders, manufacturers, and seasonal businesses. You pay a provisional premium at the start and declare your actual stock value monthly. The final premium is calculated on the average of declarations, giving you fair pricing and optimal coverage.",
+    covers: ['Fire and allied perils on stock and inventory', 'Monthly declaration to reflect actual stock value', 'Avoid paying full premium when stock is low', 'Automatic adjustment — never under-insured at peak season', 'Can be combined with contents and building cover']
+  },
+  iar: {
+    tag: 'Property Insurance', icon: '🏭',
+    title: 'Industrial All Risk Insurance',
+    lead: "Broad 'all risks' property cover for industrial facilities — a single policy replacing multiple separate covers.",
+    body: "IAR Insurance provides comprehensive protection for factories, plants, and industrial complexes under a single policy. It covers buildings, plant and machinery, stocks, and business interruption on an 'all risks' basis — meaning coverage applies to all sudden and unforeseen losses unless specifically excluded. The ideal solution for large manufacturing units.",
+    covers: ['Damage to buildings, machinery, and equipment', 'Stock and raw material loss', 'Business interruption / loss of profits after a loss', 'Electronic equipment and control systems', 'Collapse, subsidence, and accidental damage']
+  },
+  burglary: {
+    tag: 'Property Insurance', icon: '🔒',
+    title: 'Burglary Insurance',
+    lead: "Covers loss of or damage to your contents, stock, and cash in the event of housebreaking or theft.",
+    body: "Burglary Insurance protects businesses and individuals from losses due to theft, housebreaking, and attempted burglary. It covers stock, goods, furniture, fixtures, fittings, and cash in the premises. A key requirement is that there must be visible signs of forcible entry or exit. The policy can be extended to include cash-in-transit.",
+    covers: ['Loss of stock, goods, and merchandise', 'Damage to the premises caused by burglars', 'Cash and valuables kept on premises', 'Damage to furniture, fixtures, and fittings', 'Optional: cash in transit to/from bank']
+  },
+  /* INDIVIDUAL */
+  motor: {
+    tag: 'Individual Insurance', icon: '🚗',
+    title: 'Motor Insurance',
+    lead: "Mandatory and comprehensive vehicle insurance for private cars, two-wheelers, and commercial vehicles.",
+    body: "Motor Insurance in India has two components: Third-Party Liability (mandatory by law) and Own Damage (optional but strongly recommended). A Comprehensive policy combines both. At Insugo, we compare rates across all major insurers and help you choose the right add-ons — zero depreciation, return-to-invoice, engine protection — for complete peace of mind.",
+    covers: ['Third-party bodily injury and property damage (mandatory)', 'Own damage to your vehicle in accidents', 'Theft of vehicle', 'Natural calamity damage (flood, storm, earthquake)', 'Zero depreciation and NCB protection add-ons']
+  },
+  home: {
+    tag: 'Individual Insurance', icon: '🏠',
+    title: 'Home Insurance',
+    lead: "Protects your home — structure and contents — against fire, theft, natural calamities, and other perils.",
+    body: "Home Insurance is one of the most underutilised insurance products in India, yet your home is likely your biggest asset. It covers the physical structure of your home (building) and/or the contents (furniture, electronics, jewellery) against a wide range of risks. Policies can also cover personal liability if someone is injured on your property.",
+    covers: ['Fire, lightning, and allied perils to structure', 'Theft and burglary of contents', 'Flood, storm, and earthquake damage', 'Accidental damage to furniture and electronics', 'Personal liability for accidents in the home']
+  },
+  health: {
+    tag: 'Individual Insurance', icon: '❤️‍🩹',
+    title: 'Health Insurance',
+    lead: "Individual and family floater health plans that cover hospitalisation costs and medical expenses.",
+    body: "A personal Health Insurance policy ensures you and your family can access quality medical care without the burden of unexpected medical bills. Insugo helps you compare plans from all leading health insurers and choose the right sum insured, network, and add-ons — including critical illness, OPD, and maternity covers.",
+    covers: ['In-patient hospitalisation expenses', 'Pre and post-hospitalisation (60 days / 90 days)', 'Day-care and domiciliary treatment', 'Ambulance charges and organ donor expenses', 'Critical illness lump sum (optional add-on)']
+  },
+  life: {
+    tag: 'Individual Insurance', icon: '🌿',
+    title: 'Life Insurance',
+    lead: "Ensures your family's financial security if something happens to you — available as term, ULIP, endowment, and whole life plans.",
+    body: "Life Insurance provides a death benefit to your beneficiaries if you pass away during the policy term. It is the most fundamental financial protection tool. Whether you need pure protection (term plan), savings + protection (endowment/ULIP), or lifelong cover (whole life), Insugo's advisors will guide you to the right plan.",
+    covers: ['Death benefit to nominees — tax-free under Sec 10(10D)', 'Terminal illness benefit (advance payout)', 'Disability and critical illness riders', 'Savings and investment component (ULIP/endowment)', 'Premium waiver on disability (optional)']
+  },
+  child: {
+    tag: 'Individual Insurance', icon: '🎓',
+    title: 'Child Education Insurance',
+    lead: "A long-term savings and protection plan ensuring your child's education goals are met, even in your absence.",
+    body: "Child Education Plans are structured savings plans that ensure funds are available for your child's higher education at the right time. These plans include a life cover for the parent — if the parent passes away, future premiums are waived and the sum assured is paid immediately, while the plan continues to maturity.",
+    covers: ['Systematic savings for education goals', 'Life cover for the parent / policyholder', 'Premium waiver on death or disability of parent', 'Guaranteed payouts at key education milestones', 'Partial withdrawal facility for emergencies']
+  },
+  cyber: {
+    tag: 'Individual Insurance', icon: '🔐',
+    title: 'Individual Cyber Insurance',
+    lead: "Protects individuals from financial losses arising from cyber fraud, identity theft, and online scams.",
+    body: "As digital transactions and online activity grow, so does cyber fraud. Individual Cyber Insurance covers you against phishing attacks, social engineering fraud, identity theft, cyberstalking, malware-related losses, and unauthorised online transactions. It also covers legal costs if you're a victim of cybercrime.",
+    covers: ['Online banking and UPI fraud', 'Identity theft and restoration costs', 'Phishing and social engineering attacks', 'Cyber extortion / ransomware demands', 'Legal costs and psychological counselling support']
+  },
+  term: {
+    tag: 'Individual Insurance', icon: '🛡️',
+    title: 'Term Insurance',
+    lead: "Pure life protection at a low cost — pays a large sum to your family if you pass away during the policy term.",
+    body: "Term Insurance is the simplest and most affordable form of life insurance. You pay a regular premium for a fixed period, and if you die within that period, your nominees receive the sum assured. There is no maturity or survival benefit — the entire premium goes towards protection, making the coverage amount very high relative to cost.",
+    covers: ['High sum assured at very low premiums', 'Death benefit paid to nominees — tax-free', 'Cover for 10–40 years, up to age 85 options', 'Return of premium variant (if you survive the term)', 'Critical illness and accidental death riders']
+  },
+  pet: {
+    tag: 'Individual Insurance', icon: '🐾',
+    title: 'Pet Insurance',
+    lead: "Covers veterinary costs and other expenses for your beloved pets, including dogs and cats.",
+    body: "Pet Insurance helps you manage the unexpected costs of veterinary treatment for your pet. With rising vet bills for surgeries, specialist consultations, and hospitalisation, pet insurance ensures you never have to choose between your finances and your pet's health. Some plans also cover death of the pet and third-party liability.",
+    covers: ['Veterinary treatment expenses (illness and accidents)', 'Surgery and hospitalisation costs', 'Diagnostic tests and specialist consultations', 'Death of pet by accident or illness (indemnity)', 'Third-party liability if your pet injures someone']
+  },
+  fleet: {
+    tag: 'Individual Insurance', icon: '🚌',
+    title: 'Fleet Insurance',
+    lead: "A single comprehensive motor policy covering all vehicles in your fleet — cost-effective and easy to manage.",
+    body: "Fleet Insurance is designed for businesses or individuals owning 5 or more vehicles. Instead of separate policies for each vehicle, a Fleet Policy bundles them under one policy with one renewal date. It typically offers better premiums through fleet discounts, and claims are managed centrally.",
+    covers: ['Comprehensive cover for all fleet vehicles', 'Third-party liability for all vehicles', 'Fleet discount on premiums (grows with fleet size)', 'Flexible: add or remove vehicles mid-term', 'Personal accident cover for drivers']
+  },
+  engineering: {
+    tag: 'Individual Insurance', icon: '⚙️',
+    title: 'Engineering Insurance',
+    lead: "Specialised coverage for machinery, electronic equipment, and engineering projects against breakdown and damage.",
+    body: "Engineering Insurance is a broad category covering machinery breakdown, electronic equipment, boiler & pressure vessels, and contractors equipment. It protects against sudden and unforeseen damage to mechanical and electrical equipment — filling the gaps that standard fire or property policies leave.",
+    covers: ['Machinery breakdown and mechanical failure', 'Electronic and electrical equipment damage', 'Boiler and pressure vessel explosions', 'Contractor plant and machinery at project sites', 'Business interruption following machine breakdown']
+  }
+};
+
+/* ─────────────── PRODUCT OVERLAY ─────────────── */
+function showProduct(key) {
+  const p = products[key];
+  if (!p) return;
+  document.getElementById('ppTag').textContent = p.tag;
+  document.getElementById('ppIcon').textContent = p.icon;
+  document.getElementById('ppTitle').textContent = p.title;
+  document.getElementById('ppLead').textContent = p.lead;
+  document.getElementById('ppBody').textContent = p.body;
+  const ul = document.getElementById('ppCovers');
+  ul.innerHTML = p.covers.map(c => `<li>${c}</li>`).join('');
+  document.getElementById('productOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  // close all dropdowns
+  document.querySelectorAll('.has-dropdown').forEach(li => li.classList.remove('open'));
+}
+
+function closeProductDirect() {
+  document.getElementById('productOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeProduct(e) {
+  if (e.target === document.getElementById('productOverlay')) closeProductDirect();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProductDirect(); });
+
+/* ─────────────── DROPDOWN LOGIC (JS-managed, no CSS :hover) ─────────────── */
+const dropLis = document.querySelectorAll('.has-dropdown');
+let closeTimer = null;
+
+dropLis.forEach(li => {
+  const trigger = li.querySelector(':scope > a');
+  const drop = li.querySelector('.nav-dropdown');
+
+  function openDrop() {
+    clearTimeout(closeTimer);
+    dropLis.forEach(other => { if (other !== li) other.classList.remove('open'); });
+    li.classList.add('open');
+  }
+
+  function scheduledClose() {
+    closeTimer = setTimeout(() => { li.classList.remove('open'); }, 200);
+  }
+
+  trigger.addEventListener('mouseenter', openDrop);
+  li.addEventListener('mouseleave', scheduledClose);
+  if (drop) {
+    drop.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    drop.addEventListener('mouseleave', scheduledClose);
+  }
+});
+
+/* Sub-panel flyouts inside dropdowns */
+const subItems = document.querySelectorAll('.dd-item.has-sub');
+let subTimer = null;
+
+subItems.forEach(item => {
+  const btn = item.querySelector('.dd-label');
+  const sub = item.querySelector('.dd-sub');
+
+  function openSub() {
+    clearTimeout(subTimer);
+    subItems.forEach(other => { if (other !== item) other.classList.remove('sub-open'); });
+    item.classList.add('sub-open');
+  }
+  function scheduledCloseSub() {
+    subTimer = setTimeout(() => item.classList.remove('sub-open'), 200);
+  }
+
+  btn.addEventListener('mouseenter', openSub);
+  item.addEventListener('mouseleave', scheduledCloseSub);
+  if (sub) {
+    sub.addEventListener('mouseenter', () => clearTimeout(subTimer));
+    sub.addEventListener('mouseleave', scheduledCloseSub);
+  }
+});
+
+/* Close dropdowns on outside click */
+document.addEventListener('click', e => {
+  if (!e.target.closest('.has-dropdown')) {
+    dropLis.forEach(li => li.classList.remove('open'));
+  }
+});
+
+/* ─────────────── SCROLL ANIMATIONS ─────────────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up').forEach((el, i) => {
+  el.dataset.delay = (i % 3) * 100;
+  observer.observe(el);
+});
+
+// Hero fades in immediately
+const heroContent = document.querySelector('.hero-content');
+if (heroContent) {
+  heroContent.style.transition = 'none';
+  setTimeout(() => { heroContent.classList.add('visible'); heroContent.style.transition = ''; }, 100);
+}
+
+/* ─────────────── PARTNER IMAGE FALLBACKS ─────────────── */
+document.querySelectorAll('.partner-card').forEach(card => {
+  const img = card.querySelector('.partner-img');
+  const name = card.querySelector('.partner-fallback-name');
+  if (img && name) {
+    if (img.complete && img.naturalWidth === 0) {
+      img.style.display = 'none';
+      name.style.display = 'flex';
+    } else {
+      img.addEventListener('error', () => {
+        img.style.display = 'none';
+        name.style.display = 'flex';
+      });
+      img.addEventListener('load', () => {
+        name.style.display = 'none';
+      });
+    }
+  }
+});
+</script>
+</body>
+</html>
