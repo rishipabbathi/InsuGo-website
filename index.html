@@ -6,7 +6,6 @@
 <title>Insugo — Trusted Insurance Brokers | Hyderabad & Andhra Pradesh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="logo.png">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { margin: 0 !important; padding: 0 !important; }
@@ -1660,6 +1659,99 @@
     flex-shrink: 0; margin-top: 1px;
   }
 
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--grey-900);
+    flex-direction: column;
+    padding: 90px 32px 40px;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+  @media (max-width: 900px) {
+    .mobile-menu { display: flex; }
+  }
+
+  .mobile-menu-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.08);
+    border: none; border-radius: 50%;
+    color: var(--white); font-size: 20px;
+    cursor: pointer; display: grid; place-items: center;
+  }
+
+  .mobile-nav-item {
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .mobile-nav-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0;
+    font-size: 16px; font-weight: 500;
+    color: var(--white); text-decoration: none;
+    letter-spacing: 0.5px;
+    background: none; border: none;
+    width: 100%; text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+  }
+  .mobile-nav-link:hover { color: var(--yellow); }
+  .mobile-nav-arrow { font-size: 14px; color: var(--grey-500); transition: transform 0.2s; }
+  .mobile-nav-item.expanded .mobile-nav-arrow { transform: rotate(90deg); color: var(--yellow); }
+
+  .mobile-sub {
+    display: none;
+    flex-direction: column;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .mobile-nav-item.expanded .mobile-sub { display: flex; }
+
+  .mobile-sub-section {
+    padding: 10px 16px 4px;
+  }
+  .mobile-sub-section-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 6px;
+  }
+  .mobile-sub a {
+    display: block;
+    padding: 10px 16px;
+    font-size: 14px; color: var(--grey-300);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .mobile-sub a:last-child { border-bottom: none; }
+  .mobile-sub a:hover { color: var(--yellow); background: rgba(245,197,24,0.05); }
+
+  .mobile-menu-cta {
+    margin-top: 24px;
+    display: block;
+    background: var(--yellow);
+    color: var(--grey-900);
+    font-weight: 700; font-size: 15px;
+    padding: 16px; border-radius: 8px;
+    text-align: center; text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hamburger becomes X when open */
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .hamburger span { transition: transform 0.25s ease, opacity 0.25s ease; }
+
   /* Animations */
   .fade-up {
     opacity: 0;
@@ -1673,6 +1765,90 @@
 </style>
 </head>
 <body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+
+  <div class="mobile-nav-item">
+    <a href="#why" class="mobile-nav-link" onclick="closeMobileMenu()">About Us</a>
+  </div>
+  <div class="mobile-nav-item">
+    <a href="#audit" class="mobile-nav-link" onclick="closeMobileMenu()">Services</a>
+  </div>
+
+  <!-- Corporate Insurance -->
+  <div class="mobile-nav-item" id="mob-corp">
+    <button class="mobile-nav-link" onclick="toggleMobileSub('mob-corp')">
+      Corporate Insurance <span class="mobile-nav-arrow">›</span>
+    </button>
+    <div class="mobile-sub">
+      <div class="mobile-sub-section">
+        <div class="mobile-sub-section-label">Project Insurance</div>
+        <a href="#" onclick="showProduct('ear');closeMobileMenu();return false;">Erection All Risk Insurance</a>
+        <a href="#" onclick="showProduct('car');closeMobileMenu();return false;">Contractor's All Risk Insurance</a>
+        <a href="#" onclick="showProduct('cpm');closeMobileMenu();return false;">Contractor's Plant & Machinery</a>
+      </div>
+      <div class="mobile-sub-section">
+        <div class="mobile-sub-section-label">Liability Insurance</div>
+        <a href="#" onclick="showProduct('do');closeMobileMenu();return false;">Directors & Officers Liability</a>
+        <a href="#" onclick="showProduct('eo');closeMobileMenu();return false;">Errors & Omissions</a>
+        <a href="#" onclick="showProduct('cgl');closeMobileMenu();return false;">Commercial General Liability</a>
+        <a href="#" onclick="showProduct('pl');closeMobileMenu();return false;">Public Liability</a>
+        <a href="#" onclick="showProduct('prl');closeMobileMenu();return false;">Product Liability</a>
+        <a href="#" onclick="showProduct('pi');closeMobileMenu();return false;">Professional Indemnity</a>
+      </div>
+      <div class="mobile-sub-section">
+        <div class="mobile-sub-section-label">Employee Benefits</div>
+        <a href="#" onclick="showProduct('ghi');closeMobileMenu();return false;">Group Health Insurance</a>
+        <a href="#" onclick="showProduct('gpa');closeMobileMenu();return false;">Group Personal Accident</a>
+        <a href="#" onclick="showProduct('gtl');closeMobileMenu();return false;">Group Term Life Insurance</a>
+        <a href="#" onclick="showProduct('ggr');closeMobileMenu();return false;">Group Gratuity</a>
+      </div>
+      <div class="mobile-sub-section">
+        <div class="mobile-sub-section-label">Marine Insurance</div>
+        <a href="#" onclick="showProduct('mop');closeMobileMenu();return false;">Marine Open Policy</a>
+        <a href="#" onclick="showProduct('sti');closeMobileMenu();return false;">Single Transit Insurance</a>
+        <a href="#" onclick="showProduct('stop');closeMobileMenu();return false;">Sales Turnover Transit (STOP)</a>
+      </div>
+      <div class="mobile-sub-section" style="margin-bottom:8px;">
+        <div class="mobile-sub-section-label">Property Insurance</div>
+        <a href="#" onclick="showProduct('fire');closeMobileMenu();return false;">Fire Policy</a>
+        <a href="#" onclick="showProduct('sdp');closeMobileMenu();return false;">Stock Declaration Policy</a>
+        <a href="#" onclick="showProduct('iar');closeMobileMenu();return false;">Industrial All Risk Insurance</a>
+        <a href="#" onclick="showProduct('burglary');closeMobileMenu();return false;">Burglary Insurance</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual Insurance -->
+  <div class="mobile-nav-item" id="mob-indiv">
+    <button class="mobile-nav-link" onclick="toggleMobileSub('mob-indiv')">
+      Individual Insurance <span class="mobile-nav-arrow">›</span>
+    </button>
+    <div class="mobile-sub">
+      <a href="#" onclick="showProduct('motor');closeMobileMenu();return false;">Motor Insurance</a>
+      <a href="#" onclick="showProduct('home');closeMobileMenu();return false;">Home Insurance</a>
+      <a href="#" onclick="showProduct('health');closeMobileMenu();return false;">Health Insurance</a>
+      <a href="#" onclick="showProduct('life');closeMobileMenu();return false;">Life Insurance</a>
+      <a href="#" onclick="showProduct('child');closeMobileMenu();return false;">Child Education Insurance</a>
+      <a href="#" onclick="showProduct('cyber');closeMobileMenu();return false;">Cyber Insurance</a>
+      <a href="#" onclick="showProduct('term');closeMobileMenu();return false;">Term Insurance</a>
+      <a href="#" onclick="showProduct('pet');closeMobileMenu();return false;">Pet Insurance</a>
+      <a href="#" onclick="showProduct('fleet');closeMobileMenu();return false;">Fleet Insurance</a>
+      <a href="#" onclick="showProduct('engineering');closeMobileMenu();return false;">Engineering Insurance</a>
+    </div>
+  </div>
+
+  <div class="mobile-nav-item">
+    <a href="#testimonials" class="mobile-nav-link" onclick="closeMobileMenu()">Media</a>
+  </div>
+  <div class="mobile-nav-item">
+    <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact Us</a>
+  </div>
+
+  <a href="#contact" class="mobile-menu-cta" onclick="closeMobileMenu()">Get A Quote</a>
+</div>
 
 <!-- LOADING SCREEN -->
 <div id="loader">
@@ -1762,9 +1938,9 @@
       </div>
     </li>
 
-    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#testimonials">Media</a></li>
     <li><a href="#contact">Contact Us</a></li>
-    <li><a href="#quote" class="nav-cta">Get A Quote</a></li>
+    <li><a href="#contact" class="nav-cta">Get A Quote</a></li>
   </ul>
   <div class="hamburger" id="hamburgerBtn">
     <span></span><span></span><span></span>
@@ -1799,8 +1975,8 @@
 
     <h1>
       Insurance you can
-      <strong>trust</strong>
-      <em>Expertise you deserve</em>
+      <strong>trust.</strong>
+      <em>Expertise you deserve.</em>
     </h1>
 
     <div class="hero-divider"></div>
@@ -1810,7 +1986,7 @@
     </p>
 
     <div class="hero-actions">
-      <a href="#quote" class="btn-primary">Get a Free Quote</a>
+      <a href="#contact" class="btn-primary">Get a Free Quote</a>
       <a href="" class="btn-ghost">View InsuGo Digi →</a>
     </div>
 
@@ -1821,7 +1997,7 @@
       </div>
       <div class="trust-divider"></div>
       <div class="trust-item">
-        <div class="trust-num">10000+</div>
+        <div class="trust-num">9000+</div>
         <div class="trust-label">Clients served</div>
       </div>
       <div class="trust-divider"></div>
@@ -2032,7 +2208,10 @@
       <p style="font-size:15px;font-weight:400;color:var(--grey-700);line-height:1.7;">
         Many businesses are either over-insured in areas they don't need or dangerously under-covered where it matters. An Insugo audit ensures every rupee of premium works hard for you.
       </p>
-      <a href="#quote" class="btn-primary" style="margin-top:32px; display:inline-flex;">Request an Audit →</a>
+      <a href="#contact" class="btn-primary" style="margin-top:32px; display:inline-flex;">Request an Audit →</a>
+    </div>
+    <div class="audit-visual">
+      <div class="audit-icon-block">🔍</div>
     </div>
   </div>
 
@@ -2090,6 +2269,7 @@
         <div class="partner-card"><img src="partners/lic.png" alt="LIC" class="partner-img"><span class="partner-fallback-name">LIC</span></div>
         <div class="partner-card"><img src="partners/magma-hdi.png" alt="MAGMA HDI" class="partner-img"><span class="partner-fallback-name">MAGMA HDI</span></div>
         <div class="partner-card"><img src="partners/national-insurance.png" alt="National Insurance" class="partner-img"><span class="partner-fallback-name">National Insurance</span></div>
+        <div class="partner-card"><img src="partners/ai.png" alt="AI" class="partner-img"><span class="partner-fallback-name">AI</span></div>
         <div class="partner-card"><img src="partners/niva-bupa.png" alt="Niva Bupa" class="partner-img"><span class="partner-fallback-name">Niva Bupa</span></div>
         <div class="partner-card"><img src="partners/oriental-insurance.png" alt="Oriental Insurance" class="partner-img"><span class="partner-fallback-name">Oriental Insurance</span></div>
         <div class="partner-card"><img src="partners/reliance-health.png" alt="Reliance Health Insurance" class="partner-img"><span class="partner-fallback-name">Reliance Health</span></div>
@@ -2207,7 +2387,7 @@
     </div>
     <div class="cta-actions">
       <a href="#contact" class="btn-dark">Get Free Quote →</a>
-      <a href="tel:779700582" class="btn-outline-dark">📞 Call Us Now</a>
+      <a href="tel:+914040123456" class="btn-outline-dark">📞 Call Us Now</a>
     </div>
   </div>
 </div>
@@ -2353,22 +2533,22 @@
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="First name">
+          <input type="text" placeholder="Ravi">
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="Last name">
+          <input type="text" placeholder="Kumar">
         </div>
       </div>
 
       <div class="form-group">
         <label>Email Address</label>
-        <input type="email" placeholder="Mail">
+        <input type="email" placeholder="ravi@company.com">
       </div>
 
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="tel" placeholder="Mobile number">
+        <input type="tel" placeholder="+91 98765 43210">
       </div>
 
       <div class="form-group">
@@ -2413,7 +2593,7 @@
         <img src="logo.svg" alt="Insugo" style="height: 44px; width: auto;">
       </a>
       <p class="footer-desc">
-      </br>IRDAI-licensed insurance broker in Hyderabad, delivering unbiased coverage solutions for businesses and individuals since 2019.
+        IRDAI-licensed insurance broker in Hyderabad, delivering unbiased coverage solutions for businesses and individuals since 2019.
       </p>
     </div>
 
@@ -2510,6 +2690,34 @@
 </footer>
 
 <script>
+/* ─────────────── MOBILE MENU ─────────────── */
+const mobileMenu = document.getElementById('mobileMenu');
+const hamburger  = document.getElementById('hamburgerBtn');
+
+function openMobileMenu() {
+  mobileMenu.classList.add('open');
+  hamburger.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  hamburger.classList.remove('active');
+  document.body.style.overflow = '';
+}
+function toggleMobileSub(id) {
+  const item = document.getElementById(id);
+  // Close others
+  document.querySelectorAll('.mobile-nav-item.expanded').forEach(el => {
+    if (el.id !== id) el.classList.remove('expanded');
+  });
+  item.classList.toggle('expanded');
+}
+
+hamburger.addEventListener('click', () => {
+  if (mobileMenu.classList.contains('open')) closeMobileMenu();
+  else openMobileMenu();
+});
+
 /* ─────────────── LOADER ─────────────── */
 window.addEventListener('load', () => {
   setTimeout(() => {
