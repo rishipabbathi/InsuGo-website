@@ -2524,33 +2524,33 @@
       </div>
     </div>
 
-    <div class="contact-form fade-up">
+<form class="contact-form fade-up" action="https://formspree.io/f/mbdbdnyq" method="POST" id="quoteForm">
       <h3>Get Your Free Quote</h3>
 
       <div class="form-row">
         <div class="form-group">
-          <label>First Name</label>
-          <input type="text" placeholder="First Name">
+          <label for="first_name">First Name</label>
+          <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
         </div>
         <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" placeholder="Last Name">
+          <label for="last_name">Last Name</label>
+          <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" placeholder="Email">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Email" required>
       </div>
 
       <div class="form-group">
-        <label>Phone Number</label>
-        <input type="tel" placeholder="Contact">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
       </div>
 
       <div class="form-group">
-        <label>Insurance Type</label>
-        <select>
+        <label for="insurance_type">Insurance Type</label>
+        <select id="insurance_type" name="insurance_type" required>
           <option value="" disabled selected>Select coverage type</option>
           <option>Group Health Insurance</option>
           <option>Project Insurance (CAR/EAR)</option>
@@ -2567,18 +2567,24 @@
       </div>
 
       <div class="form-group">
-        <label>Message (Optional)</label>
-        <textarea placeholder="Tell us about your business or specific coverage needs..."></textarea>
+        <label for="message">Message (Optional)</label>
+        <textarea id="message" name="message" placeholder="Tell us about your business or specific coverage needs..."></textarea>
       </div>
 
-      <button class="btn-primary" style="width:100%; justify-content:center; border:none; cursor:pointer; font-size:15px;" onclick="alert('Thank you! We\'ll be in touch within 24 hours.')">
+      <!-- Success message (hidden by default) -->
+      <div id="formSuccess" style="display:none; background:rgba(245,197,24,0.12); border:1px solid var(--yellow); border-radius:8px; padding:16px; margin-bottom:16px; text-align:center;">
+        <div style="font-size:24px; margin-bottom:8px;">✅</div>
+        <div style="font-weight:600; color:var(--white); font-size:15px;">Thank you! We'll be in touch within 24 hours.</div>
+      </div>
+
+      <button type="submit" class="btn-primary" id="submitBtn" style="width:100%; justify-content:center; font-size:15px;">
         Send My Request →
       </button>
 
       <p style="font-size:12px; color:var(--grey-500); margin-top:16px; text-align:center;">
         We never share your details. No spam, ever.
       </p>
-    </div>
+    </form>
   </div>
 </section>
 
@@ -3047,6 +3053,39 @@ const heroContent = document.querySelector('.hero-content');
 if (heroContent) {
   heroContent.style.transition = 'none';
   setTimeout(() => { heroContent.classList.add('visible'); heroContent.style.transition = ''; }, 100);
+}
+
+/* ─────────────── FORMSPREE AJAX ─────────────── */
+const quoteForm = document.getElementById('quoteForm');
+if (quoteForm) {
+  quoteForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const success = document.getElementById('formSuccess');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/mbdbdnyq', {
+        method: 'POST',
+        body: new FormData(quoteForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        success.style.display = 'block';
+        quoteForm.reset();
+        btn.textContent = 'Sent ✓';
+        btn.style.background = '#22c55e';
+      } else {
+        btn.textContent = 'Error — Try Again';
+        btn.disabled = false;
+        btn.style.background = '#ef4444';
+      }
+    } catch {
+      btn.textContent = 'Error — Try Again';
+      btn.disabled = false;
+      btn.style.background = '#ef4444';
+    }
+  });
 }
 
 /* ─────────────── PARTNER IMAGE FALLBACKS ─────────────── */
